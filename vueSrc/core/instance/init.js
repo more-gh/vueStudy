@@ -13,6 +13,7 @@ import { extend, mergeOptions, formatComponentName } from '../util/index'
 let uid = 0
 
 export function initMixin (Vue: Class<Component>) {
+  // 在vue原型上增加_init方法
   Vue.prototype._init = function (options?: Object) {
     const vm: Component = this
     // a uid
@@ -23,10 +24,11 @@ export function initMixin (Vue: Class<Component>) {
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
       startTag = `vue-perf-init:${vm._uid}`
       endTag = `vue-perf-end:${vm._uid}`
-      mark(startTag) /*2018.07.29 看到这里*/
+      mark(startTag)
     }
 
     // a flag to avoid this being observed
+    // 防止vue实例自身被观察的标志
     vm._isVue = true
     // merge options
     if (options && options._isComponent) {

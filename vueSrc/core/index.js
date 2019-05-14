@@ -1,5 +1,5 @@
 import Vue from './instance/index' // 1
-import { initGlobalAPI } from './global-api/index' // 2
+import { initGlobalAPI } from './global-api/index'
 // 判断是不是ssr的变量？
 import { isServerRendering } from 'core/util/env'
 

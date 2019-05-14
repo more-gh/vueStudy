@@ -1,4 +1,4 @@
-import { initMixin } from './init'
+import { initMixin } from './init' //2
 import { stateMixin } from './state'
 import { renderMixin } from './render'
 import { eventsMixin } from './events'

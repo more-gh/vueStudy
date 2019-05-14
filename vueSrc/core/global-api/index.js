@@ -28,6 +28,7 @@ export function initGlobalAPI (Vue: GlobalAPI) {
       )
     }
   }
+  //vue设置config属性
   Object.defineProperty(Vue, 'config', configDef)
 
   // exposed util methods.
@@ -44,6 +45,7 @@ export function initGlobalAPI (Vue: GlobalAPI) {
   Vue.delete = del
   Vue.nextTick = nextTick
 
+  //设置vue的options属性
   Vue.options = Object.create(null)
   ASSET_TYPES.forEach(type => {
     Vue.options[type + 's'] = Object.create(null)
