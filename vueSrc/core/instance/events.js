@@ -7,10 +7,12 @@ import {
   handleError,
   formatComponentName
 } from '../util/index'
-import { updateListeners } from '../vdom/helpers/index'
+import { updateListeners } from '../vdom/helpers/index' //6
 
 export function initEvents (vm: Component) {
+  //在vm上创建_events对象来存放事件
   vm._events = Object.create(null)
+  //通过_hasHookEvent来判断是否有钩子
   vm._hasHookEvent = false
   // init parent attached events
   const listeners = vm.$options._parentListeners

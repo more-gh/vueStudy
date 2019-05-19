@@ -1,12 +1,12 @@
 /* @flow */
 
 import config from '../config'
-import { initProxy } from './proxy'
+import { initProxy } from './proxy' //3
 import { initState } from './state'
-import { initRender } from './render'
-import { initEvents } from './events'
+import { initRender } from './render' //6
+import { initEvents } from './events' //5
 import { mark, measure } from '../util/perf'
-import { initLifecycle, callHook } from './lifecycle'
+import { initLifecycle, callHook } from './lifecycle' //4
 import { initProvide, initInjections } from './inject'
 import { extend, mergeOptions, formatComponentName } from '../util/index'
 
@@ -51,13 +51,20 @@ export function initMixin (Vue: Class<Component>) {
     }
     // expose real self
     vm._self = vm
+    //各种初始化（注意顺序！）
+    // 初始化生命周期
     initLifecycle(vm)
+    // 初始化事件
     initEvents(vm)
+    // 初始化render
     initRender(vm)
+    // 调用beforeCreate钩子函数
     callHook(vm, 'beforeCreate')
     initInjections(vm) // resolve injections before data/props
+    // 初始化data、props、methods、computed、watch
     initState(vm)
     initProvide(vm) // resolve provide after data/props
+    // 调用created钩子函数
     callHook(vm, 'created')
 
     /* istanbul ignore if */
@@ -68,6 +75,7 @@ export function initMixin (Vue: Class<Component>) {
     }
 
     if (vm.$options.el) {
+      // 挂载组件
       vm.$mount(vm.$options.el)
     }
   }
@@ -93,11 +101,15 @@ function initInternalComponent (vm: Component, options: InternalComponentOptions
 export function resolveConstructorOptions (Ctor: Class<Component>) {
   let options = Ctor.options
   if (Ctor.super) {
+    //如果存在父类，对父类进行解析
     const superOptions = resolveConstructorOptions(Ctor.super)
     const cachedSuperOptions = Ctor.superOptions
+    //检查缓存的弗雷的options是否发生变化
     if (superOptions !== cachedSuperOptions) {
       // super option changed,
       // need to resolve new options.
+
+      //如果父类options有变化，需要把解析的新的options进行缓存
       Ctor.superOptions = superOptions
       // check if there are any late-modified/attached options (#4976)
       const modifiedOptions = resolveModifiedOptions(Ctor)

@@ -131,6 +131,7 @@ export function hasOwn (obj: Object | Array<*>, key: string): boolean {
 /**
  * Create a cached version of a pure function.
  */
+//根据str得到fn(str)的结果,如果fn(str)已计算过一次,会被闭包缓存,下次可直接得到结果,无需重新计算
 export function cached<F: Function> (fn: F): F {
   const cache = Object.create(null)
   return (function cachedFn (str: string) {

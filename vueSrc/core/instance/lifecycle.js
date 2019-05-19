@@ -29,10 +29,12 @@ export function initLifecycle (vm: Component) {
     while (parent.$options.abstract && parent.$parent) {
       parent = parent.$parent
     }
+    // 把vm对象存储到第一个非抽象组件父组件的$children中
     parent.$children.push(vm)
   }
 
   vm.$parent = parent
+  //vm的$root设为第一个非抽象父组件的$root
   vm.$root = parent ? parent.$root : vm
 
   vm.$children = []
@@ -312,6 +314,7 @@ export function callHook (vm: Component, hook: string) {
   if (handlers) {
     for (let i = 0, j = handlers.length; i < j; i++) {
       try {
+        //调用钩子函数
         handlers[i].call(vm)
       } catch (e) {
         handleError(e, vm, `${hook} hook`)
@@ -319,6 +322,7 @@ export function callHook (vm: Component, hook: string) {
     }
   }
   if (vm._hasHookEvent) {
+    //触发钩子事件
     vm.$emit('hook:' + hook)
   }
 }
